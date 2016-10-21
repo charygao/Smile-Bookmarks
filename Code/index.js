@@ -127,7 +127,7 @@ function GetLogoUrl(url)
 {
 	if(/http[s]?:\/\/(.*?)([:\/]|$)/.test(url))
 	{
-		return "http://bookmarks.oneo.me/icons/" + url.match(/http[s]?:\/\/(.*?)([:\/]|$)/)[1].replace("www.","");
+		return "http://bookmarks.oneo.me/icons/" + (url.match(/http[s]?:\/\/(.*?)([:\/]|$)/)[1]).replace("www.","").replace(/\./g,"_");
 	}
 	return null;
 }
@@ -137,7 +137,6 @@ function LoacIcon(link)
 {
 	if ($(link).attr("type") == "link")
 	{
-		// header("Access-Control-Allow-Methods:GET,POST");
 		var logoUrl = GetLogoUrl($(link).attr("url"));
 		$.ajax({
 			type: "get",

@@ -9,7 +9,8 @@
 	"permissions": [
 		"bookmarks",
 		"tabs",
-		"chrome://favicon/"
+		"chrome://favicon/",
+		"http://bookmarks.oneo.me/"
 	],
 	"icons": {
 		"16": "res/icon16.png",
