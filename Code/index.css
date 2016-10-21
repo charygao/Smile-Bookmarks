@@ -1,0 +1,90 @@
+::-webkit-scrollbar
+{
+	width: 0;
+}
+#bookmarks
+{
+	padding: 5px;
+	width: 500px;
+	height: 480px;
+	overflow-y: scroll;
+}
+.link
+{
+	margin: 5px;
+	float: left;
+	cursor: pointer;
+	display: block;
+}
+.link .icon
+{
+	border-radius: 3px;
+	width: 60px;
+	height: 60px;
+	margin: 15px 15px 0 15px;
+
+	box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+	
+	transition: all 0.1s;
+}
+.link .icon .text
+{
+	line-height: 56px;
+	text-align: center;
+	color: rgba(255,255,255,1);
+	font-size: 36px;
+	font-weight: lighter;
+}
+.link .title
+{
+	width: 70px;
+	height: 35px;
+	line-height: 35px;
+	font-size: 14px;
+	text-align: center;
+	color: rgba(0,0,0,0.8);
+
+	padding: 0 10px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+}
+.link:hover .icon
+{
+	transform: scale(1.1,1.1);
+
+	transition: all 0.2s;
+}
+.link:active .icon
+{
+	transform: scale(1.05,1.05);
+
+	transition: all 0.1s;
+}
+
+#site a
+{
+	color: rgba(0,0,0,0.7);
+	text-decoration: none;
+	font-size: 12px;
+	padding: 10px 0;
+	cursor: pointer;
+
+	transition: all 0.1s;
+}
+#site a:hover
+{
+	color: rgba(0,0,0,1);
+
+	transition: all 0.1s;
+}
+#site a.left
+{
+	float: left;
+	margin: 0 0 0 15px;
+}
+#site a.right
+{
+	float: right;
+	margin: 0 15px 0 0;
+}
