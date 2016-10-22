@@ -1,8 +1,3 @@
-function Ad()
-{
-	
-}
-
 // 禁止选择
 document.onselectstart = function(e)
 {
@@ -21,15 +16,25 @@ function Clear()
 	$("#bookmarks").children('.link').remove();
 }
 
-// 书签栏的书签
+// 环境变量
 var bookmarks;
+var icons;
+var serverUrl = "http://bookmarks.oneo.me"
 
 // 添加书签
 function AddLink(title,url)
 {
+	var logoUrl = GetIconUrl(GetDomain(url));
 	var html = "";
 	html += '<div class="link" type="link" ' + 'title="' + title + '" ' + 'url="' + url + '" ' + '">';
-	html += '	<div class="icon" style="background-image: url(http://bookmarks.oneo.me/icons/default);"></div>';
+	if (logoUrl == null)
+	{
+		html += '	<div class="icon"></div>';
+	}
+	else
+	{
+		html += '	<div class="icon" style="background-image: url(' + logoUrl + ');"></div>';
+	}
 	html += '	<div class="title">' + title + '</div>';
 	html += '</div>';
 	$("#bookmarks").append(html);
@@ -40,7 +45,7 @@ function AddFolder(id,parentId,title)
 {
 	var html = "";
 	html += '<div class="link" type="folder" ' + 'id="' + id + '" ' + 'parentId="' + parentId + '" ' + 'title="' + title + '" ' + '">';
-	html += '	<div class="icon" style="background-image: url(http://bookmarks.oneo.me/icons/folder);"></div>';
+	html += '	<div class="icon" style="background-image: url(res/folder.png);"></div>';
 	html += '	<div class="title">' + title + '</div>';
 	html += '</div>';
 	$("#bookmarks").append(html);
@@ -51,7 +56,7 @@ function AddBack(backId)
 {
 	var html = "";
 	html += '<div class="link" type="back" backId="' + backId + '">';
-	html += '	<div class="icon" style="background-image: url(http://bookmarks.oneo.me/icons/back);"></div>';
+	html += '	<div class="icon" style="background-image: url(res/back.png);"></div>';
 	html += '	<div class="title">返回</div>';
 	html += '</div>';
 	$("#bookmarks").append(html);
@@ -77,16 +82,36 @@ function Add(arg)
 	}
 }
 
-// 设置图标
-function SetIcon(link,logoUrl,success)
+// 获取图标链接
+function GetIconUrl(domain)
 {
-	if(logoUrl != null && success)
+	if (icons == null)
 	{
-		$(link).children(".icon").css({"background": "url(" + logoUrl + ")"});
+		return;
 	}
-	else
+	// 获取绝对匹配的图标
+	for (var i = 0; i < icons.length; i++)
 	{
-		// 生成颜色
+		if (icons[i]["domain"] == domain || icons[i]["domain"] == "." + domain)
+		{
+			return serverUrl + icons[i]["url"] + "&count=true";
+		}
+	}
+	// 获取通配的图标
+	for (var i = 0; i < icons.length; i++)
+	{
+		if (domain.endsWith("." + icons[i]["domain"]))
+		{
+			return serverUrl + icons[i]["url"] + "&count=true";
+		}
+	}
+}
+
+// 设置图标
+function GenerateIcon(link)
+{
+	if ($(link).children(".icon").css("background-image") == "none")
+	{
 		var favicon = "chrome://favicon/" + $(link).attr("url");
 		RGBaster.colors(favicon, {
 			success: function(payload) {
@@ -117,40 +142,20 @@ function SetIcon(link,logoUrl,success)
 						$(link).children(".icon").append("<div class='text'>" + $(link).children(".title").text().substr(0,1) + "</div>");
 					}
 				}
+
+				if ($(link).children(".icon")[0].style.background == "")
+				{
+					$(link).children(".icon").css({"background-image": "url(res/default.png)"});
+				}
 			}
 		});
 	}
 }
 
-// 获取自定义图标地址
-function GetLogoUrl(url)
+// 获取域名
+function GetDomain(url)
 {
-	if(/http[s]?:\/\/(.*?)([:\/]|$)/.test(url))
-	{
-		return "http://bookmarks.oneo.me/icons/" + (url.match(/http[s]?:\/\/(.*?)([:\/]|$)/)[1]).replace("www.","").replace(/\./g,"_");
-	}
-	return null;
-}
-
-// 加载图标
-function LoacIcon(link)
-{
-	if ($(link).attr("type") == "link")
-	{
-		var logoUrl = GetLogoUrl($(link).attr("url"));
-		$.ajax({
-			type: "get",
-			url: logoUrl,
-			success: function()
-			{
-				SetIcon(link,logoUrl,true);
-			},
-			error: function()
-			{
-				SetIcon(link,logoUrl,false);
-			}
-		});
-	}
+	return url.match(/http[s]?:\/\/(.*?)([:\/]|$)/)[1].replace("www.","");
 }
 
 // 点击书签
@@ -188,20 +193,8 @@ function Refresh()
 	for (var i = 0; i < links.length; i++)
 	{
 		Click(links[i]);
-		LoacIcon(links[i]);
+		GenerateIcon(links[i]);
 	}
-
-	// 刷新底部链接
-	$("#site .link").mouseup(function(e){
-		if (e.which == 1)
-		{
-			chrome.tabs.update({"url": $(this).attr("url")});
-		}
-		else if (e.which == 2)
-		{
-			chrome.tabs.create({"url": $(this).attr("url")});
-		}
-	});
 }
 
 // 查找指定书签
@@ -235,6 +228,24 @@ function FindFolder(arg,id)
 	return null;
 }
 
+function SetSize(num)
+{
+	max = 4;
+	thh = parseInt(num / 5);
+	if (num % 5 > 0)
+	{
+		thh += 1;
+	}
+	if (thh > max)
+	{
+		$("#bookmarks").css("height",max * 120 + 20 + "px" );
+	}
+	else
+	{
+		$("#bookmarks").css("height",thh * 120 + 20 + "px" );
+	}
+}
+
 // 显示首页的书签，获取这个ID的所有子元素
 function OpenFolder(id)
 {
@@ -244,12 +255,16 @@ function OpenFolder(id)
 		Clear();
 		if (folder["id"] != 1)
 		{
+			SetSize(folder["children"].length + 1);
 			AddBack(folder["parentId"]);
+		}
+		else
+		{
+			SetSize(folder["children"].length);
 		}
 		for (var i = 0; i < folder["children"].length; i++) {
 			Add(folder["children"][i]);
 		}
-		Ad();
 		Refresh();
 	}
 }
@@ -257,6 +272,23 @@ function OpenFolder(id)
 // 初始化
 function Init()
 {
+	// 设置底部链接
+	$("#site .link").mouseup(function(e){
+		if (e.which == 1)
+		{
+			chrome.tabs.update({"url": $(this).attr("url")});
+		}
+		else if (e.which == 2)
+		{
+			chrome.tabs.create({"url": $(this).attr("url")});
+		}
+	});
+	//  获取图标列表
+	$.getJSON(serverUrl + "/icons?action=json",function(json)
+	{
+		icons = json;
+	});
+	// 打开书签栏的书签
 	Clear();
 	chrome.bookmarks.getTree(function(array)
 	{
