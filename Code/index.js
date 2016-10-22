@@ -287,13 +287,13 @@ function Init()
 	$.getJSON(serverUrl + "/icons?action=json",function(json)
 	{
 		icons = json;
-	});
-	// 打开书签栏的书签
-	Clear();
-	chrome.bookmarks.getTree(function(array)
-	{
-		bookmarks = array[0]["children"][0];
-		OpenFolder(1);
+		// 打开书签栏的书签
+		Clear();
+		chrome.bookmarks.getTree(function(array)
+		{
+			bookmarks = array[0]["children"][0];
+			OpenFolder(1);
+		});
 	});
 }
 
