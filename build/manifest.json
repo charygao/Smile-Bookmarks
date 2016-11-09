@@ -1,9 +1,10 @@
 {
 	"name": "My Bookmarks",
 	"description": "方便隐藏书签栏后，还能使用书签打开网页",
-	"version": "1.4.1",
+	"version": "1.4.2",
 	"incognito": "split",
-	"browser_action": {
+	"browser_action":
+	{
 		"default_popup": "index.html"
 	},
 	"permissions": [
@@ -12,7 +13,8 @@
 		"chrome://favicon/",
 		"http://bookmarks.oneo.me/"
 	],
-	"icons": {
+	"icons":
+	{
 		"16": "res/icon16.png",
 		"48": "res/icon48.png",
 		"128": "res/icon128.png"
