@@ -1,6 +1,8 @@
 <template>
 	<div id="icons" class="test">
-		<o-icon v-for="icon in icons" :icon="icon"></o-icon>
+		<div class="scroll">
+			<o-icon v-for="icon in icons" :icon="icon"></o-icon>
+		</div>
 	</div>
 </template>
 
@@ -12,15 +14,15 @@
 
 	function findBookmarks(arg,id)
 	{
-		if (id === 1)
+		if (id == 1)
 		{
 			return bookmarks
 		}
 		for (var i = 0; i < arg["children"].length; i++)
 		{
-			if (arg["children"][i]["children"] !== null)
+			if (arg["children"][i]["children"] != null)
 			{
-				if (arg["children"][i]["id"] === id)
+				if (arg["children"][i]["id"] == id)
 				{
 					return arg["children"][i]
 				}
@@ -39,10 +41,10 @@
 	function openBookmarks(id)
 	{
 		var f = findBookmarks(bookmarks,id)
-		if (f !== null)
+		if (f != null)
 		{
 			othis.icons = []
-			if (f["id"] !== 1)
+			if (f["id"] != 1)
 			{
 				// 添加返回按钮
 				othis.icons.push({
@@ -59,12 +61,11 @@
 			for (var i = 0; i < f["children"].length; i++)
 			{
 				othis.icons.push({
-					title: "标题",
-					url: "链接",
-					type: "类型"
+					title: f["children"][i]["title"],
+					url: f["children"][i]["url"],
+					type: f["children"][i]["children"] == null ? "link" : "folder"
 				})
 			}
-			console.log(othis.icons)
 		}
 	}
 	function initBookmarks()
@@ -95,8 +96,17 @@
 <style>
 	#icons
 	{
-		padding: 5px;
-		margin-bottom: 26px;
+		width: 490px;
+		height: 525px;
 		overflow: hidden;
+
+		padding-bottom: 10px;
+	}
+	#icons .scroll
+	{
+		width: 100%;
+		height: 100%;
+		padding: 5px;
+		overflow-y: scroll;
 	}
 </style>

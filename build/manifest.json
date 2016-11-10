@@ -1,7 +1,7 @@
 {
 	"name": "My Bookmarks",
 	"description": "方便隐藏书签栏后，还能使用书签打开网页",
-	"version": "1.4.2",
+	"version": "1.5.0",
 	"incognito": "split",
 	"browser_action":
 	{

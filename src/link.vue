@@ -1,5 +1,5 @@
 <template>
-	<div class="link test">
+	<div class="link test" :href="href">
 		<slot></slot>
 	</div>
 </template>
@@ -8,7 +8,7 @@
 	export default {
 		props: [
 			"type",
-			"data"
+			"href"
 		]
 	}
 </script>

@@ -8190,7 +8190,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "#icons{padding:5px;margin-bottom:26px;overflow:hidden}", ""]);
+exports.push([module.i, "#icons{width:490px;height:525px;overflow:hidden;padding-bottom:10px}#icons .scroll{width:100%;height:100%;padding:5px;overflow-y:scroll}", ""]);
 
 // exports
 
@@ -8218,7 +8218,7 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, "body{margin:0;padding:0}::-webkit-scrollbar{width:0}.test{background:rgba(255,0,0,.1)}", ""]);
+exports.push([module.i, "body{margin:0;padding:0}::-webkit-scrollbar{width:0}#app{width:490px}", ""]);
 
 // exports
 
@@ -8232,26 +8232,13 @@ exports = module.exports = __webpack_require__(0)();
 
 
 // module
-exports.push([module.i, ".icon{margin:5px;float:left;line-height:0}.icon .img{width:60px;height:60px;border-radius:3px;margin:15px 15px 0;box-shadow:0 2px 5px rgba(0,0,0,.12)}.icon .title{width:90px;height:35px;line-height:35px;font-size:14px;text-align:center;color:rgba(0,0,0,.8);overflow:hidden;text-overflow:ellipsis}", ""]);
+exports.push([module.i, ".icon{float:left;line-height:0;margin:5px;transition:transform .2s}.icon .img{width:60px;height:60px;border-radius:3px;margin:5px;box-shadow:0 2px 5px rgba(0,0,0,.12)}.icon .title{width:70px;height:25px;line-height:25px;font-size:.8em;text-align:center;color:rgba(0,0,0,.8);overflow:hidden;text-overflow:ellipsis}.icon:hover{transform:scale(1.15);transition:transform .1s}.icon:active{transform:scale(1.1);transition:transform .1s}", ""]);
 
 // exports
 
 
 /***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(0)();
-// imports
-
-
-// module
-exports.push([module.i, "#quick{position:fixed;width:100%;left:0;bottom:0}#quick .left,#quick .left .link{float:left}#quick .right,#quick .right .link{float:right}#quick .link{margin:5px;color:rgba(0,0,0,.7)}#quick .link:hover{margin:5px;color:#000}", ""]);
-
-// exports
-
-
-/***/ },
+/* 9 */,
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -8356,40 +8343,13 @@ if(false) {
 }
 
 /***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(9);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// add the styles to the DOM
-var update = __webpack_require__(1)(content, {});
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!./../node_modules/.0.25.0@css-loader/index.js!./../node_modules/.9.8.1@vue-loader/lib/style-rewriter.js?id=data-v-e208b9b8!./../node_modules/.9.8.1@vue-loader/lib/selector.js?type=styles&index=0!./quick.vue", function() {
-			var newContent = require("!!./../node_modules/.0.25.0@css-loader/index.js!./../node_modules/.9.8.1@vue-loader/lib/style-rewriter.js?id=data-v-e208b9b8!./../node_modules/.9.8.1@vue-loader/lib/selector.js?type=styles&index=0!./quick.vue");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ },
+/* 14 */,
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__icons_vue__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__icons_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__icons_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__quick_vue__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__quick_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__quick_vue__);
 //
 //
 //
@@ -8399,14 +8359,15 @@ if(false) {
 //
 
 
-
+// import OQuick from "./quick.vue"
 /* harmony default export */ exports["default"] = {
 	components: {
-		OIcons: __WEBPACK_IMPORTED_MODULE_0__icons_vue___default.a,
-		OQuick: __WEBPACK_IMPORTED_MODULE_1__quick_vue___default.a
+		OIcons: __WEBPACK_IMPORTED_MODULE_0__icons_vue___default.a
 	},
 	created: function created() {
-		// document.onselectstart = function(e) { return false }
+		document.onselectstart = function (e) {
+			return false;
+		};
 		// document.oncontextmenu = function(e) { return false }
 	}
 };
@@ -8435,6 +8396,21 @@ if(false) {
 	props: ["icon"],
 	components: {
 		OLink: __WEBPACK_IMPORTED_MODULE_0__link_vue___default.a
+	},
+	computed: {
+		getIcon: function getIcon() {
+			switch (this.icon.type) {
+				case "back":
+					return "res/back.png";
+				case "folder":
+					return "res/folder.png";
+				default:
+					// 获取在线图标
+					// 否则  生成颜色背景
+					// 否则  返回这个默认图标
+					return "res/default.png";
+			}
+		}
 	}
 };
 
@@ -8451,6 +8427,8 @@ if(false) {
 //
 //
 //
+//
+//
 
 
 
@@ -8458,12 +8436,12 @@ var othis = null;
 var bookmarks = null;
 
 function findBookmarks(arg, id) {
-	if (id === 1) {
+	if (id == 1) {
 		return bookmarks;
 	}
 	for (var i = 0; i < arg["children"].length; i++) {
-		if (arg["children"][i]["children"] !== null) {
-			if (arg["children"][i]["id"] === id) {
+		if (arg["children"][i]["children"] != null) {
+			if (arg["children"][i]["id"] == id) {
 				return arg["children"][i];
 			} else {
 				var f = findBookmarks(arg["children"][i], id);
@@ -8477,9 +8455,9 @@ function findBookmarks(arg, id) {
 }
 function openBookmarks(id) {
 	var f = findBookmarks(bookmarks, id);
-	if (f !== null) {
+	if (f != null) {
 		othis.icons = [];
-		if (f["id"] !== 1) {
+		if (f["id"] != 1) {
 			// 添加返回按钮
 			othis.icons.push({
 				title: "返回",
@@ -8492,12 +8470,11 @@ function openBookmarks(id) {
 			}
 		for (var i = 0; i < f["children"].length; i++) {
 			othis.icons.push({
-				title: "标题",
-				url: "链接",
-				type: "类型"
+				title: f["children"][i]["title"],
+				url: f["children"][i]["url"],
+				type: f["children"][i]["children"] == null ? "link" : "folder"
 			});
 		}
-		console.log(othis.icons);
 	}
 }
 function initBookmarks() {
@@ -8536,41 +8513,11 @@ function initBookmarks() {
 //
 
 /* harmony default export */ exports["default"] = {
-	props: ["type", "data"]
+	props: ["type", "href"]
 };
 
 /***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__link_vue__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__link_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__link_vue__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ exports["default"] = {
-	components: {
-		OLink: __WEBPACK_IMPORTED_MODULE_0__link_vue___default.a
-	}
-};
-
-/***/ },
+/* 19 */,
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -8635,38 +8582,7 @@ module.exports = __vue_exports__
 
 
 /***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-var __vue_exports__, __vue_options__
-var __vue_styles__ = {}
-
-/* styles */
-__webpack_require__(14)
-
-/* script */
-__vue_exports__ = __webpack_require__(19)
-
-/* template */
-var __vue_template__ = __webpack_require__(27)
-__vue_options__ = __vue_exports__ = __vue_exports__ || {}
-if (
-  typeof __vue_exports__.default === "object" ||
-  typeof __vue_exports__.default === "function"
-) {
-__vue_options__ = __vue_exports__ = __vue_exports__.default
-}
-if (typeof __vue_options__ === "function") {
-  __vue_options__ = __vue_options__.options
-}
-
-__vue_options__.render = __vue_template__.render
-__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-
-module.exports = __vue_exports__
-
-
-/***/ },
+/* 22 */,
 /* 23 */
 /***/ function(module, exports) {
 
@@ -8676,13 +8592,15 @@ module.exports={render:function (){with(this) {
     attrs: {
       "id": "icons"
     }
+  }, [_h('div', {
+    staticClass: "scroll"
   }, [_l((icons), function(icon) {
     return _h('o-icon', {
       attrs: {
         "icon": icon
       }
     })
-  })])
+  })])])
 }},staticRenderFns: []}
 
 /***/ },
@@ -8691,7 +8609,10 @@ module.exports={render:function (){with(this) {
 
 module.exports={render:function (){with(this) {
   return _h('div', {
-    staticClass: "link test"
+    staticClass: "link test",
+    attrs: {
+      "href": href
+    }
   }, [_t("default")])
 }},staticRenderFns: []}
 
@@ -8705,7 +8626,7 @@ module.exports={render:function (){with(this) {
     attrs: {
       "id": "app"
     }
-  }, [_h('o-icons'), " ", _h('o-quick')])
+  }, [_h('o-icons'), " "])
 }},staticRenderFns: []}
 
 /***/ },
@@ -8718,74 +8639,21 @@ module.exports={render:function (){with(this) {
   }, [_h('o-link', {
     attrs: {
       "type": icon.type,
-      "data": icon.data,
-      "title": icon.title
+      "href": icon.href,
+      "title": icon.title + '\n'
     }
-  }, [_m(0), " ", _h('div', {
-    staticClass: "title"
-  }, ["\n\t\t\t" + _s(icon.title) + "\n\t\t"])])])
-}},staticRenderFns: [function (){with(this) {
-  return _h('img', {
+  }, [_h('img', {
     staticClass: "img",
     attrs: {
-      "src": "res/default.png"
+      "src": getIcon
     }
-  })
-}}]}
-
-/***/ },
-/* 27 */
-/***/ function(module, exports) {
-
-module.exports={render:function (){with(this) {
-  return _h('div', {
-    staticClass: "test",
-    attrs: {
-      "id": "quick"
-    }
-  }, [_h('div', {
-    staticClass: "left test"
-  }, [_h('o-link', {
-    attrs: {
-      "type": "link",
-      "data": "chrome://settings/"
-    }
-  }, ["设置"]), " ", _h('o-link', {
-    attrs: {
-      "type": "link",
-      "data": "chrome://extensions/"
-    }
-  }, ["扩展程序"]), " ", _h('o-link', {
-    attrs: {
-      "type": "link",
-      "data": "chrome://bookmarks/"
-    }
-  }, ["书签管理器"]), " ", _h('o-link', {
-    attrs: {
-      "type": "link",
-      "data": "chrome://downloads/"
-    }
-  }, ["下载内容"]), " ", _h('o-link', {
-    attrs: {
-      "type": "link",
-      "data": "chrome://flags/"
-    }
-  }, ["实验室"])]), " ", _h('div', {
-    staticClass: "right test"
-  }, [_h('o-link', {
-    attrs: {
-      "type": "link",
-      "data": "http://oneo.me/"
-    }
-  }, ["作者博客"]), " ", _h('o-link', {
-    attrs: {
-      "type": "link",
-      "data": "http://oneo.me/my-bookmarks/"
-    }
-  }, ["官方网站"])])])
+  }), " ", _h('div', {
+    staticClass: "title"
+  }, ["\n\t\t\t" + _s(icon.title) + "\n\t\t"])])])
 }},staticRenderFns: []}
 
 /***/ },
+/* 27 */,
 /* 28 */
 /***/ function(module, exports, __webpack_require__) {
 

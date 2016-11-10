@@ -1,20 +1,20 @@
 <template>
 	<div id="app" class="test">
 		<o-icons></o-icons>
-		<o-quick></o-quick>
+		<!-- <o-quick></o-quick> -->
 	</div>
 </template>
 
 <script>
 	import OIcons from "./icons.vue"
-	import OQuick from "./quick.vue"
+	// import OQuick from "./quick.vue"
 	export default {
 		components: {
 			OIcons,
-			OQuick
+			// OQuick
 		},
 		created () {
-			// document.onselectstart = function(e) { return false }
+			document.onselectstart = function(e) { return false }
 			// document.oncontextmenu = function(e) { return false }
 		}
 	}
@@ -32,10 +32,10 @@
 	}
 	.test
 	{
-		background: rgba(255,0,0,0.1);
+		/*background: rgba(255,0,0,0.1);*/
 	}
 	#app
 	{
-
+		width: 490px;
 	}
 </style>
