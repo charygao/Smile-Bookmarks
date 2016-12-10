@@ -1,0 +1,100 @@
+::-webkit-scrollbar
+{
+	width: 0;
+}
+#body
+{
+	background: rgb(255,255,255);
+}
+#bookmarks
+{
+	padding: 5px;
+	margin-bottom: 10px;
+	width: 500px;
+	height: 0;
+	overflow: scroll;
+
+	transition: all 0.3s;
+}
+#bookmarks .link
+{
+	margin: 5px;
+	float: left;
+	cursor: pointer;
+	display: block;
+}
+.link .icon
+{
+	border-radius: 3px;
+	width: 60px;
+	height: 60px;
+	margin: 15px 15px 0 15px;
+
+	box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+	
+	transition: transform 0.1s;
+}
+.link .icon .text
+{
+	line-height: 56px;
+	text-align: center;
+	color: rgba(255,255,255,1);
+	font-size: 36px;
+	font-weight: lighter;
+}
+.link .title
+{
+	width: 90px;
+	height: 35px;
+	line-height: 35px;
+	font-size: 14px;
+	text-align: center;
+	color: rgba(0,0,0,0.8);
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+}
+.link:hover .icon
+{
+	transform: scale(1.1,1.1);
+
+	transition: transform 0.2s;
+}
+.link:active .icon
+{
+	transform: scale(1.05,1.05);
+
+	transition: transform 0.1s;
+}
+#site
+{
+	background: rgba(255,255,255,1);
+	position: fixed;
+	z-index: 999;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+}
+#site a
+{
+	color: rgba(0,0,0,0.7);
+	text-decoration: none;
+	font-size: 12px;
+	padding: 10px 0;
+	cursor: pointer;
+}
+#site a:hover
+{
+	color: rgba(0,0,0,1);
+}
+#site a.left
+{
+	float: left;
+	margin: 0 0 0 15px;
+}
+#site a.right
+{
+	float: right;
+	margin: 0 15px 0 0;
+}

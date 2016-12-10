@@ -14,16 +14,16 @@ module.exports = {
 		rules: [
 		{
 			test: /\.vue$/,
-			loader: 'vue',
+			loader: 'vue-loader',
 		},
 		{
 			test: /\.js$/,
-			loader: 'babel',
+			loader: 'babel-loader',
 			exclude: /node_modules/
 		},
 		{
 			test: /\.(png|jpg|gif|svg|ttf)$/,
-			loader: 'file',
+			loader: 'file-loader',
 			options:
 			{
 				name: '[name].[ext]?[hash]'
@@ -38,9 +38,23 @@ module.exports = {
 		}
 	},
 	plugins: [
+		new webpack.DefinePlugin(
+		{
+			'process.env':
+			{
+				NODE_ENV: '"production"'
+			}
+		}),
 		new webpack.LoaderOptionsPlugin(
 		{
 			minimize: true
+		}),
+		new webpack.optimize.UglifyJsPlugin(
+		{
+			compress:
+			{
+				warnings: false
+			}
 		})
 	]
 }

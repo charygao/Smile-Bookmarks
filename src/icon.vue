@@ -1,36 +1,35 @@
 <template>
 	<div class="icon test">
-		<o-link :type="icon.type" :href="icon.href" :title="icon.title + '\n'">
-			<img class="img" :src="getIcon">
-			<div class="title">
-				{{ icon.title }}
-			</div>
-		</o-link>
+		<div class="logo" :style="'background-image: url(' + getIcon + ')'">
+			<span class="logoText"></span>
+		</div>
+		<div class="title">
+			{{ icon.title }}
+		</div>
 	</div>
 </template>
 
 <script>
-	import OLink from "./link.vue"
 	export default {
 		props: [
 			"icon"
 		],
-		components: {
-			OLink
-		},
 		computed: {
 			getIcon: function () {
 				switch (this.icon.type)
 				{
 					case "back":
 						return "res/back.png"
+						break
 					case "folder":
 						return "res/folder.png"
+						break
 					default:
 						// 获取在线图标
 						// 否则  生成颜色背景
 						// 否则  返回这个默认图标
 						return "res/default.png"
+						break
 				}
 			}
 		}
@@ -40,19 +39,31 @@
 <style>
 	.icon
 	{
+		cursor: pointer;
 		float: left;
 		line-height: 0;
 		margin: 5px;
-
-		transition: transform 0.2s;
 	}
-	.icon .img
+	.icon .logo
 	{
 		width: 60px;
 		height: 60px;
+		background-size: 60px 60px;
 		border-radius: 3px;
 		margin: 5px;
 		box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+
+		transition: transform 0.2s;
+	}
+	.icon .logo .logoText
+	{
+		font-size: 3.5em;
+		display: block;
+		text-align: center;
+		line-height: 50px;
+		color: rgba(255,255,255,1);
+		
+		font-weight: lighter;
 	}
 	.icon .title
 	{
@@ -66,15 +77,15 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-	.icon:hover
+	.icon:hover .logo
 	{
-		transform: scale(1.15,1.15);
+		transform: scale(1.1,1.1);
 
 		transition: transform 0.1s;
 	}
-	.icon:active
+	.icon:active .logo
 	{
-		transform: scale(1.1,1.1);
+		transform: scale(1,1);
 
 		transition: transform 0.1s;
 	}

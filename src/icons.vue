@@ -1,81 +1,13 @@
 <template>
-	<div id="icons" class="test">
+	<div id="icons" class="test" :style="'height:' + iconsHeight + 'px'">
 		<div class="scroll">
-			<o-icon v-for="icon in icons" :icon="icon"></o-icon>
+			<o-icon v-for="icon in icons" :icon="icon" @click.native="clicka(icon)"></o-icon>
 		</div>
 	</div>
 </template>
 
 <script>
-	import OIcon from "./icon.vue"
-
-	var othis = null
-	var bookmarks = null
-
-	function findBookmarks(arg,id)
-	{
-		if (id == 1)
-		{
-			return bookmarks
-		}
-		for (var i = 0; i < arg["children"].length; i++)
-		{
-			if (arg["children"][i]["children"] != null)
-			{
-				if (arg["children"][i]["id"] == id)
-				{
-					return arg["children"][i]
-				}
-				else
-				{
-					var f = findBookmarks(arg["children"][i],id)
-					if (f !== null)
-					{
-						return f
-					}
-				}
-			}
-		}
-		return null
-	}
-	function openBookmarks(id)
-	{
-		var f = findBookmarks(bookmarks,id)
-		if (f != null)
-		{
-			othis.icons = []
-			if (f["id"] != 1)
-			{
-				// 添加返回按钮
-				othis.icons.push({
-					title: "返回",
-					type: "back",
-					back: f["parentId"]
-				})
-				// 设置大小，图标数量 + 1
-			}
-			else
-			{
-				// 设置大小，图标数量
-			}
-			for (var i = 0; i < f["children"].length; i++)
-			{
-				othis.icons.push({
-					title: f["children"][i]["title"],
-					url: f["children"][i]["url"],
-					type: f["children"][i]["children"] == null ? "link" : "folder"
-				})
-			}
-		}
-	}
-	function initBookmarks()
-	{
-		chrome.bookmarks.getTree(function(array)
-		{
-			bookmarks = array[0]["children"][0]
-			openBookmarks(1)
-		})
-	}
+	import Vue from "vue"
 
 	export default {
 		data () {
@@ -83,12 +15,34 @@
 				icons: []
 			}
 		},
+		methods: {
+			clicka (icon) {
+				switch (icon.type)
+				{
+					case "back":
+						Vue.bookmarks.openFolder(icon.parentId)
+						break
+					case "folder":
+						Vue.bookmarks.openFolder(icon.folderID)
+						break
+					default:
+						console.log("不支持")
+						break
+				}
+			}
+		},
+		computed: {
+			iconsHeight () {
+				var line = parseInt(this.icons.length / 6) + (this.icons.length % 6 > 0 ? 1 : 0)
+				line = line > 5 ? 5 : line
+				return line * 105
+			}
+		},
 		created () {
-			othis = this
-			initBookmarks()
+			Vue.bookmarks.init(this)
 		},
 		components: {
-			OIcon
+			"o-icon": require("./icon.vue")
 		}
 	}
 </script>
@@ -98,6 +52,7 @@
 	{
 		width: 490px;
 		height: 525px;
+		
 		overflow: hidden;
 
 		padding-bottom: 10px;
